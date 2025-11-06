@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(npx wrangler deploy:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm install:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
