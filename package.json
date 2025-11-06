@@ -13,21 +13,26 @@
     "deploy:worker": "wrangler deploy",
     "dev:worker": "wrangler dev"
   },
-  "keywords": ["stocks", "finance", "yahoo-finance"],
+  "keywords": [
+    "stocks",
+    "finance",
+    "yahoo-finance"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
-    "node-fetch": "^3.3.2"
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "react-helmet-async": "^2.0.5"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
     "concurrently": "^8.2.2",
-    "vite": "^5.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
+    "vite": "^5.0.8",
     "wrangler": "^4.45.4"
   }
 }

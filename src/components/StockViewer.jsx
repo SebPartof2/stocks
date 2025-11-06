@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './StockViewer.css';
 import { getCurrencySymbol } from '../config/currencies';
+import StockMetaTags from './StockMetaTags';
 
 // Get API URL from environment variable or use default localhost
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -57,8 +58,10 @@ function StockViewer({ symbol }) {
   const isPositive = parseFloat(stockData.change) >= 0;
 
   return (
-    <div className="stock-viewer">
-      <div className="stock-header">
+    <>
+      <StockMetaTags stockData={stockData} />
+      <div className="stock-viewer">
+        <div className="stock-header">
         <div className="stock-title">
           <div className="title-main">
             <img
@@ -190,7 +193,8 @@ function StockViewer({ symbol }) {
           Logos provided by LogoKit.com
         </a>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 
