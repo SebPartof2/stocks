@@ -60,8 +60,16 @@ function StockViewer({ symbol }) {
       <div className="stock-header">
         <div className="stock-title">
           <div className="title-main">
-            <h1>{stockData.longName || stockData.shortName || stockData.symbol}</h1>
-            <span className="stock-symbol">{stockData.symbol}</span>
+            <img
+              src={`https://img.logokit.com/ticker/${stockData.symbol}?token=pk_fr4c5e5fc1caaa89b3cef3`}
+              alt={`${stockData.symbol} logo`}
+              className="stock-logo"
+              onError={(e) => e.target.style.display = 'none'}
+            />
+            <div className="title-text">
+              <h1>{stockData.longName || stockData.shortName || stockData.symbol}</h1>
+              <span className="stock-symbol">{stockData.symbol}</span>
+            </div>
           </div>
           <div className="title-meta">
             {stockData.market && (
@@ -173,6 +181,12 @@ function StockViewer({ symbol }) {
             )}
           </div>
         )}
+      </div>
+
+      <div className="attribution">
+        <a href="https://logokit.com" title="Logo API" target="_blank" rel="noopener noreferrer">
+          Logos provided by LogoKit.com
+        </a>
       </div>
     </div>
   );

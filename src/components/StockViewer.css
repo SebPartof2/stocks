@@ -26,6 +26,23 @@
   flex-wrap: wrap;
 }
 
+.stock-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  object-fit: contain;
+  background: white;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title-text {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
 .stock-title h1 {
   margin: 0;
   font-size: 2rem;
@@ -202,6 +219,25 @@
   height: 400px;
   font-size: 1.5rem;
   color: #ef4444;
+}
+
+.attribution {
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.attribution a {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.attribution a:hover {
+  color: #667eea;
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
