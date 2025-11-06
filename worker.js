@@ -25,7 +25,18 @@ export default {
       try {
         // Fetch stock data from Yahoo Finance
         const quoteUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1d`;
-        const quoteResponse = await fetch(quoteUrl);
+        const quoteResponse = await fetch(quoteUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'application/json',
+          }
+        });
+
+        if (!quoteResponse.ok) {
+          console.error('Quote API error:', quoteResponse.status, await quoteResponse.text());
+          throw new Error(`Yahoo Finance API returned ${quoteResponse.status}`);
+        }
+
         const quoteData = await quoteResponse.json();
 
         if (quoteData.chart.error) {
@@ -44,7 +55,12 @@ export default {
 
         // Get additional company info
         const summaryUrl = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${symbol}?modules=price,summaryDetail,assetProfile`;
-        const summaryResponse = await fetch(summaryUrl);
+        const summaryResponse = await fetch(summaryUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'application/json',
+          }
+        });
         const summaryData = await summaryResponse.json();
 
         const priceData = summaryData.quoteSummary?.result?.[0]?.price || {};
@@ -97,7 +113,11 @@ export default {
         });
       } catch (error) {
         console.error('Error fetching stock data:', error);
-        return new Response(JSON.stringify({ error: 'Failed to fetch stock data' }), {
+        return new Response(JSON.stringify({
+          error: 'Failed to fetch stock data',
+          details: error.message,
+          symbol: symbol
+        }), {
           status: 500,
           headers: {
             'Content-Type': 'application/json',
