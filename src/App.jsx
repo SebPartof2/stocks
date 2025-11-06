@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import StockViewer from './components/StockViewer';
 import NotFound from './pages/NotFound';
+import { featuredStocks, getLogoUrl } from './config/featuredStocks';
 import './App.css';
 
 function App() {
@@ -27,8 +28,6 @@ function Home() {
     }
   };
 
-  const popularStocks = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA'];
-
   return (
     <div className="home">
       <div className="home-content">
@@ -46,16 +45,22 @@ function Home() {
           <button type="submit" className="search-button">View Stock</button>
         </form>
 
-        <div className="popular-stocks">
-          <h3>Popular Stocks:</h3>
-          <div className="stock-chips">
-            {popularStocks.map((stock) => (
+        <div className="featured-stocks">
+          <h3>Featured Stocks</h3>
+          <div className="stock-grid">
+            {featuredStocks.map((stockSymbol) => (
               <button
-                key={stock}
-                onClick={() => navigate(`/stock/${stock}`)}
-                className="stock-chip"
+                key={stockSymbol}
+                onClick={() => navigate(`/stock/${stockSymbol}`)}
+                className="stock-card"
               >
-                {stock}
+                <img
+                  src={getLogoUrl(stockSymbol)}
+                  alt={`${stockSymbol} logo`}
+                  className="stock-card-logo"
+                  onError={(e) => e.target.style.display = 'none'}
+                />
+                <span className="stock-card-symbol">{stockSymbol}</span>
               </button>
             ))}
           </div>
