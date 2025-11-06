@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './StockViewer.css';
 
+// Get API URL from environment variable or use default localhost
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 function StockViewer({ symbol }) {
   const [stockData, setStockData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +15,7 @@ function StockViewer({ symbol }) {
       setError(null);
 
       try {
-        const response = await fetch(`http://localhost:3001/api/stock/${symbol}`);
+        const response = await fetch(`${API_URL}/api/stock/${symbol}`);
 
         if (!response.ok) {
           throw new Error('Stock symbol not found');

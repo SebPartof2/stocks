@@ -24,6 +24,16 @@ A modern web application for viewing real-time stock information using the Yahoo
 npm install
 ```
 
+2. Configure environment variables:
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit .env and set your API URL
+# For local development: VITE_API_URL=http://localhost:3001
+# For production: VITE_API_URL=https://your-api-url.com
+```
+
 ## Running the Application
 
 Start both the backend server and frontend development server:
@@ -73,6 +83,74 @@ To preview the production build:
 
 ```bash
 npm run preview
+```
+
+### Deploying to Production
+
+This project consists of two parts that need to be deployed separately:
+
+#### 1. Deploy Backend API to Cloudflare Workers
+
+First, install Wrangler (if not already installed):
+
+```bash
+npm install
+```
+
+Login to Cloudflare (if you haven't already):
+
+```bash
+npx wrangler login
+```
+
+Deploy the API to Cloudflare Workers:
+
+```bash
+npm run deploy:worker
+```
+
+After deployment, you'll get a Workers URL like: `https://stocks-api.your-subdomain.workers.dev`
+
+**Testing your Worker:**
+```bash
+curl https://stocks-api.your-subdomain.workers.dev/api/stock/AAPL
+```
+
+#### 2. Deploy Frontend to Cloudflare Pages
+
+**Option A: Using Wrangler CLI**
+
+```bash
+npm run build
+npx wrangler pages deploy dist --project-name=stocks
+```
+
+**Option B: Using Git Integration (Recommended)**
+
+1. Push your code to GitHub
+2. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → Pages
+3. Click "Create a project" → "Connect to Git"
+4. Select your repository
+5. Configure build settings:
+   - **Build command**: `npm run build`
+   - **Build output directory**: `dist`
+   - **Environment variables**: Add `VITE_API_URL` with your Workers URL
+     - Example: `https://stocks-api.your-subdomain.workers.dev`
+
+#### 3. Update Environment Variables
+
+After deploying the backend, update your frontend environment variable:
+
+**For Cloudflare Pages:**
+1. Go to your Pages project settings
+2. Navigate to "Settings" → "Environment variables"
+3. Add `VITE_API_URL` with your Workers URL
+4. Redeploy the frontend
+
+**For local development:**
+Update `.env` file:
+```
+VITE_API_URL=https://stocks-api.your-subdomain.workers.dev
 ```
 
 ## API Endpoints
