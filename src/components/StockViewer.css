@@ -112,6 +112,15 @@
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.currency-code {
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .price-change {
@@ -247,6 +256,10 @@
 
   .current-price {
     font-size: 2rem;
+  }
+
+  .currency-code {
+    font-size: 1rem;
   }
 
   .price-change {

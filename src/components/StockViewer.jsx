@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './StockViewer.css';
+import { getCurrencySymbol } from '../config/currencies';
 
 // Get API URL from environment variable or use default localhost
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -92,10 +93,11 @@ function StockViewer({ symbol }) {
 
       <div className="stock-price-section">
         <div className="current-price">
-          {stockData.currency} {stockData.currentPrice.toFixed(2)}
+          {getCurrencySymbol(stockData.currency)}{stockData.currentPrice.toFixed(2)}
+          <span className="currency-code">{stockData.currency}</span>
         </div>
         <div className={`price-change ${isPositive ? 'positive' : 'negative'}`}>
-          {isPositive ? '▲' : '▼'} {stockData.change} ({stockData.changePercent}%)
+          {isPositive ? '▲' : '▼'} {getCurrencySymbol(stockData.currency)}{stockData.change} ({stockData.changePercent}%)
         </div>
       </div>
 
